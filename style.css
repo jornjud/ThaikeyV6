@@ -1,0 +1,101 @@
+/* ปรับแต่ง style ของ body */
+body {
+  font-family: 'Arial', sans-serif; 
+  margin: 20px;
+  background-color: #f8f8f8; /* Soft background color */
+  color: #333;            /* Darker text color */
+}
+
+/* ปรับแต่ง style ของ h1 */
+h1 {
+  font-size: 28px;
+  margin-top: 0;
+  color: #2c3e50; /* Example title color */
+}
+
+/* ปรับแต่ง style ของ form */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff; /* Form has white background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+}
+
+/* ปรับแต่ง style ของ label */
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* ปรับแต่ง style ของ input */
+input, textarea {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 250px; /* Example width */
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* ปรับแต่ง style ของ button */
+button {
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  background-color: #2980b9; /* Button primary color */
+  color: #fff;
+  border: none; 
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transition effect */
+}
+
+button:hover {
+  background-color: #2471a3; /* Darker shade on hover */
+}
+
+/* ปรับแต่ง style ของ h2 */
+h2 {
+  margin-top: 20px;
+  color:  #2c3e50;  /* Similar to title color */
+}
+
+/* ปรับแต่ง style ของ div#history */
+#history {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 15px;
+}
+
+#history p {
+  margin-bottom: 5px;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #888;
+}
+
+.keyword {
+  font-weight: bold;
+  color: #007bff; /* Example keyword highlight */
+}
+
+.message {
+  font-style: italic;
+}
+
+.result {
+  font-weight: bold;
+  color: #28a745; /* Example result highlight */
+}
+
+/* Media Queries for Responsiveness */
+@media only screen and (max-width: 768px) {
+  input, textarea {
+    width: 90%; /* Make input fields wider on smaller screens */
+  }
+}
+
