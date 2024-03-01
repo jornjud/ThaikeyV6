@@ -43,6 +43,20 @@ function copyResult() {
   navigator.clipboard.writeText(document.getElementById("result").value);
 }
 
+function checkResult() {
+  let keyword = document.getElementById('keyword').value;
+  let result = document.getElementById('result').value;
+
+  // แทนที่ข้อความในกล่องข้อความ "ข้อความ"
+  document.getElementById('message').value = result;
+
+  // ถอดรหัสข้อความ
+  decrypt(keyword, result);
+}
+
+
+
+
 function addHistory(keyword, message, result) {
   history.push({
     timestamp: new Date().toLocaleString(),
