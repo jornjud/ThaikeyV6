@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เครื่องมือเข้ารหัสแบบคำสำคัญ (Thai/English Keyword Cipher)</title>
-    <link rel="stylesheet" href="style_Eng.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เข้ารหัสและถอดรหัส</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>เข้ารหัสภาษาอังกฤษ(EngKey_V1)</h1>
-	
-    <label for="keyword">คำสำคัญ (Keyword):</label>
-    <input type="text" id="keyword" >
-
-    <label for="message">ข้อความ (Message):</label>
-    <textarea id="message"></textarea>
-
-    <button onclick="encrypt()">เข้ารหัส (Encrypt)</button>
-    <button onclick="decrypt()">ถอดรหัส (Decrypt)</button>
-
-    <label for="result">ผลลัพธ์ (Result):</label>
-    <textarea id="result"></textarea>
-    <button onclick="copyResult()">คัดลอกผลลัพธ์ (Copy Result)</button>
-	
+  <h1>EngKey_V6</h1>
+ <form onsubmit="return false;">
+    <label for="keyword">Keyword:</label>
+    <input id="keyword" type="text" placeholder="ใส่ Keyword">
+    <br>
+    <label for="message">ข้อความ:</label>
+    <br>
+    <textarea id="message" rows="5" placeholder="ใส่ข้อความ"></textarea>
+    <br>
+    <button onclick="encrypt(document.getElementById('keyword').value, document.getElementById('message').value)">เข้ารหัส</button>
+    <button onclick="decrypt(document.getElementById('keyword').value, document.getElementById('message').value)">ถอดรหัส</button>
+    <button onclick="clearText()">ล้างข้อความ</button> 
+    <br>
+    <label for="result">ผลลัพธ์:</label>
+    <br>
+    <textarea id="result" rows="5"></textarea>
+    <br>
+    <button onclick="copyResult()">คัดลอกผลลัพธ์</button>
 	<br>
-   <button onclick="location.href='index.html'">กลับไปยังเข้ารหัสภาษาไทย (ThaiKey_V6)</button>
-	<br>
-    <script src="script_Eng.js"></script>
+	<button onclick="location.href='index.html'">ไปยังเข้ารหัสภาษาไทย(ThaiKey_V6)</button>
+  </form>
+  <h2>ประวัติ</h2>
+  <div id="history"></div>
+  <script src="script_Eng.js"></script>
 </body>
-</html>
+</html>  
