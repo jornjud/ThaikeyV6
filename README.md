@@ -1,6 +1,6 @@
 **README.md**
 
-# ThaiKey_V6 Encryptor/Decryptor
+# ThaiKey_V6/Engkey_1 Encryptor/Decryptor
 
 ThaiKey_V6 เป็นแอปพลิเคชั่นบนเว็บสำหรับการเข้ารหัสและถอดรหัสข้อความภาษาไทยโดยใช้ keyword
 
