@@ -1,68 +1,76 @@
-const thaiAlphabet = "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืุูเแโใไๅๆ็่้๊๋์"; 
-const englishAlphabet = "abcdefghijklmnopqrstuvwxyz";
-let currentAlphabet = englishAlphabet; // Default to English
+const ALPHABETS = {
+  thai: "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤลฦวศษสหฬอฮฯะัาำิีึืุูเแโใไๅๆ็่้๊๋์",
+  english: "abcdefghijklmnopqrstuvwxyz",
+};
 
-function encrypt() {
-    let keyword = document.getElementById("keyword").value.replace(/重复字符/g, "");
-    let message = document.getElementById("message").value;
-    let result = "";
+let currentAlphabet = ALPHABETS.english;
+let history = [];
 
-    let cipherMap = createCipherMap(keyword);
+function encrypt(keyword, message) {
+  if (!validateKeyword(keyword)) {
+    console.error("Keyword ไม่ถูกต้อง: ห้ามมีอักษรซ้ำ");
+    return;
+  }
 
-    for (let i = 0; i < message.length; i++) {
-        let index = currentAlphabet.indexOf(message[i].toLowerCase()); // Convert to lowercase
-        if (index !== -1) { // Check if character exists in the alphabet
-            result += cipherMap[index];   
-        } else {
-            result += message[i]; // Keep non-alphabet characters as is
-        }
-    }
-
-    document.getElementById("result").value = result;
+  const cipherMap = createCipherMap(keyword);
+  const result = message.replace(/./g, c => cipherMap[ALPHABETS.english.indexOf(c)] || c);
+  document.getElementById("result").value = result;
+  addHistory(keyword, message, result);
 }
 
-function decrypt() {
-    let keyword = document.getElementById("keyword").value.replace(/重复字符/g, "");
-    let message = document.getElementById("message").value;
-    let result = "";
+function decrypt(keyword, message) {
+  if (!validateKeyword(keyword)) {
+    console.error("Keyword ไม่ถูกต้อง: ห้ามมีอักษรซ้ำ");
+    return;
+  }
 
-    let cipherMap = createCipherMap(keyword);
-    let reverseMap = createReverseMap(cipherMap); 
-
-    for (let i = 0; i < message.length; i++) {
-        let index = cipherMap.indexOf(message[i]);
-        if (index !== -1) { // Check if character exists in the cipher map
-            result += reverseMap[index];  
-        } else {
-            result += message[i]; // Keep non-alphabet characters as is
-        }
-    }
-
-    document.getElementById("result").value = result;
+  const cipherMap = createCipherMap(keyword);
+  const reverseMap = createReverseMap(cipherMap, keyword);
+  const result = message.replace(/./g, c => reverseMap[cipherMap.indexOf(c)] || c);
+  document.getElementById("result").value = result;
+  addHistory(keyword, message, result);
 }
 
 function createCipherMap(keyword) {
-    let map = keyword + currentAlphabet.replace(new RegExp('[' + keyword + ']', 'g'), ''); 
-    return map; 
-} 
-
-function createReverseMap(cipherMap) {
-    let map = currentAlphabet + cipherMap.substring(keyword.length); 
-    return map; 
-} 
-
-function copyResult() {
-    const resultText = document.getElementById("result").value;
-    let tempTextArea = document.createElement("textarea");
-    tempTextArea.value = resultText;
-    document.body.appendChild(tempTextArea);
-    tempTextArea.select();
-    document.execCommand("copy");
-    document.body.removeChild(tempTextArea);
+  return keyword + currentAlphabet.replace(new RegExp('[' + keyword + ']', 'g'), '');
 }
 
-function updateLanguage() {
-    let selectedLanguage = document.getElementById("languageSelect").value;
-    currentAlphabet = selectedL
-anguage === 'en' ? englishAlphabet : thaiAlphabet;
+function createReverseMap(cipherMap, keyword) {
+  return currentAlphabet + cipherMap.substring(keyword.length);
+}
+
+function copyResult() {
+  navigator.clipboard.writeText(document.getElementById("result").value);
+}
+
+function addHistory(keyword, message, result) {
+  history.push({
+    timestamp: new Date().toLocaleString(),
+    keyword,
+    message,
+    result,
+  });
+  updateHistoryDisplay();
+}
+
+function updateHistoryDisplay() {
+  const historyElement = document.getElementById("history");
+  historyElement.innerHTML = history.map(entry => `
+    <p class="timestamp">${entry.timestamp}</p>
+    <p class="keyword">Keyword: ${entry.keyword}</p>
+    <p class="message">Message: ${entry.message}</p>
+    <p class="result">Result: ${entry.result}</p>
+  `).join('');
+}
+
+function clearText() {
+  document.getElementById("keyword").value = "";
+  document.getElementById("message").value = "";
+  document.getElementById("result").value = "";
+}
+
+updateHistoryDisplay();
+
+function validateKeyword(keyword) {
+  return !/[a-z\d].*?\1/.test(keyword);
 }
